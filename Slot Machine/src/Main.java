@@ -38,9 +38,7 @@ public class Main {
             //Introduce to the rules:
             System.out.print("Do you know the rules yes/no: ");
             knowRules = scanner.nextLine().toLowerCase();
-            if (knowRules.equals("no")){
-                System.out.println(rules);
-            }
+            System.out.println((knowRules.equals("no")) ? rules : "Ok, Let's start!");
 
             //Make a timer (random):
             int timer = random.nextInt(1000, 7000);
@@ -62,7 +60,7 @@ public class Main {
                 int num8 = random.nextInt(1, 5);
                 int num9 = random.nextInt(1, 5);
                 //Introduce player:
-                System.out.print("you have " + currency + cash + "\nHow much do you wanna bet(: ");
+                System.out.printf("you have %c%.0f \nHow much do you wanna bet(: ", currency , cash);
                 bet = scanner.nextDouble();
                 scanner.nextLine();
 
@@ -76,7 +74,7 @@ public class Main {
                 }
 
                 //Make sure of the bet:
-                System.out.print("Are you sure you wanna bet " + currency + bet + " yes/no: ");
+                System.out.printf("Are you sure you wanna bet %c%.0f yes/no: ",currency,bet);
                 answer = scanner.nextLine().toLowerCase();
                 if (answer.equals("no")) {
                     continue;
@@ -99,7 +97,7 @@ public class Main {
                     //this is where the game counts if you win/lose:
                     if (bet < 10) {
                         if (num4 == num5 && num5 == num6) {
-                            System.out.println("gg, you have won, " + currency + (bet * smallWin) + " will be added to your wallet");
+                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * smallWin));
                             double temp = bet * smallWin;
                             cash += temp;
 
@@ -111,7 +109,7 @@ public class Main {
                                 num1 == num2 && num2 == num3 ||
                                 num4 == num5 && num5 == num6
                         ) {
-                            System.out.println("gg, you have won, " + currency + (bet * mediumWin) + " will be added to your wallet");
+                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * mediumWin));
                             double temp = bet * mediumWin;
                             cash += temp;
 
@@ -124,7 +122,7 @@ public class Main {
                                 num4 == num5 && num5 == num6 ||
                                 num7 == num8 && num8 == num9
                         ) {
-                            System.out.println("gg's, you have won, " + currency + (bet * highWin) + " will be added to your wallet");
+                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * highWin));
                             double temp = bet * highWin;
                             cash += temp;
 
