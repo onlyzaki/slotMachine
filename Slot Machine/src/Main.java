@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.Random;
 import java.util.HashMap;
 public class Main {
-    public static void main(String[]Arg) {
+    public static void main(String[]Arg) throws InterruptedException{
 
         //begin the game:
         System.out.println("welcome to my slot machine game, created by onlyzaki!");
@@ -83,12 +83,10 @@ public class Main {
                     cash -= bet;
                     //Make a delay:
                     System.out.println("please wait, Still counting...");
+                    
                     //here I want to create an animation ...
-                    try {
-                        Thread.sleep(timer);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    Thread.sleep(timer);
+
                     //This is the result:
                     System.out.println("\uD83C\uDFB0 " + num1 + sp + num2 + sp + num3);
                     System.out.println("\uD83C\uDFB0 " + num4 + sp + num5 + sp + num6);
