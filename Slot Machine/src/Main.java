@@ -24,9 +24,7 @@ public class Main {
             String sp = " | ";
             boolean valid = false;
             String loss = "That was so close, go and try again";
-            int smallWin = 3;
-            int mediumWin =  5;
-            int highWin = 10;
+            int win;
             //
             String rules = "The game starts with a total cash of " + cash + " and you could bet as much as you want\n"
                     + "(but not more then your cash), if u bet less than 10$ only middle line will count as win \n"
@@ -41,7 +39,7 @@ public class Main {
             System.out.println((knowRules.equals("no")) ? rules : "Ok, Let's start!");
 
             //Make a timer (random):
-            int timer = random.nextInt(1000, 7000);
+            int timer;
 
             //Declare HashMap/s:
             stringToBoolean.put("yes", false);
@@ -49,6 +47,7 @@ public class Main {
 
             //Game logic:
             do {
+                timer = random.nextInt(1000, 7000);
                 //Declare game variables:
                 int num1 = random.nextInt(1, 5);
                 int num2 = random.nextInt(1, 5);
@@ -83,7 +82,7 @@ public class Main {
                     cash -= bet;
                     //Make a delay:
                     System.out.println("please wait, Still counting...");
-                    
+
                     //here I want to create an animation ...
                     Thread.sleep(timer);
 
@@ -93,36 +92,26 @@ public class Main {
                     System.out.println("\uD83C\uDFB0 " + num7 + sp + num8 + sp + num9);
 
                     //this is where the game counts if you win/lose:
-                    if (bet < 10) {
-                        if (num4 == num5 && num5 == num6) {
-                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * smallWin));
-                            double temp = bet * smallWin;
-                            cash += temp;
 
+                    if (bet < 10) {
+                        if (isWin(num4, num5, num6)) {
+                            win = 3;
+                            cash += wining( currency,bet,win);
                         }else {
                             System.out.println(loss);
                         }
                     } else if (bet < 50 && bet >= 10) {
-                        if (
-                                num1 == num2 && num2 == num3 ||
-                                num4 == num5 && num5 == num6
-                        ) {
-                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * mediumWin));
-                            double temp = bet * mediumWin;
-                            cash += temp;
+                        if (isWin(num1, num2, num3) || isWin(num4, num5, num6)){
+                            win = 5;
+                            cash += wining( currency,bet,win);
 
                         }else {
                             System.out.println(loss);
                         }
                     } else if (bet >= 50) {
-                        if (
-                                num1 == num2 && num2 == num3 ||
-                                num4 == num5 && num5 == num6 ||
-                                num7 == num8 && num8 == num9
-                        ) {
-                            System.out.printf("gg, you have won, %c%.0f will be added to your wallet\n",currency,(bet * highWin));
-                            double temp = bet * highWin;
-                            cash += temp;
+                        if (isWin(num1, num2, num3) || isWin(num4, num5, num6) || isWin(num7, num8, num9)) {
+                            win = 10;
+                            cash += wining( currency,bet,win);
 
                         }else {
                             System.out.println(loss);
@@ -136,7 +125,7 @@ public class Main {
                 }
 
                 //Check if the player is out of Money:
-                if (cash <= 1) {
+                if (cash < 1) {
                     System.out.print("you've lost, try again yes/no: ");
                     answer = scanner.nextLine().toLowerCase();
                     otherValid = stringToBoolean.getOrDefault(answer, false);
@@ -157,6 +146,14 @@ public class Main {
         while (!otherValid);
 
         scanner.close();
+    }
+    static double wining(char currency, double bet, int win){
+        double winning = bet * win;
+        System.out.printf("🎉 Congrats! You won %c%.0f!\n", currency, winning);
+        return winning;
+    }
+    static boolean isWin(int a, int b, int c){
+        return (a == b && b == c);
     }
 }
 
